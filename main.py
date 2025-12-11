@@ -1,6 +1,7 @@
 from diccionary import construir_diccionario
 from load import cargar_dataset, obtener_stopwords_ingles, añadir_columna_tokens
 from split import dividir_train_test_balanceado
+from bow import df_a_matriz_bow
 
 def main():
     ruta = "FinalStemmedSentimentAnalysisDataset.csv"
@@ -29,6 +30,17 @@ def main():
     )
 
     print("Tamaño vocabulario:", len(vocab))
+
+    X_train, y_train = df_a_matriz_bow(df_train, vocab,
+                                       nombre_columna_tokens="tokens",
+                                       nombre_columna_label="sentimentLabel")
+
+    X_test, y_test = df_a_matriz_bow(df_test, vocab,
+                                     nombre_columna_tokens="tokens",
+                                     nombre_columna_label="sentimentLabel")
+
+    print("X_train shape:", X_train.shape)
+    print("X_test shape:", X_test.shape)
 
 if __name__ == "__main__":
     main()
