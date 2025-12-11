@@ -1,5 +1,6 @@
-from diccionary import *
-from load import *
+from diccionary import construir_diccionario
+from load import cargar_dataset, obtener_stopwords_ingles, añadir_columna_tokens
+from split import dividir_train_test_balanceado
 
 def main():
     ruta = "FinalStemmedSentimentAnalysisDataset.csv"
@@ -13,13 +14,22 @@ def main():
                                nombre_columna_tokens="tokens",
                                stop_words=stop_words)
 
-    vocab, contador = construir_diccionario(df,
-                                            nombre_columna_tokens="tokens",
-                                            min_freq=2,
-                                            max_vocab=None)
+    df_train, df_test = dividir_train_test_balanceado(
+        df,
+        nombre_columna_label="sentimentLabel",
+        test_size=0.2,
+        random_state=42
+    )
+
+    vocab, contador = construir_diccionario(
+        df_train,
+        nombre_columna_tokens="tokens",
+        min_freq=2,
+        max_vocab=None
+    )
 
     print("Tamaño vocabulario:", len(vocab))
-    print(contador.most_common(20))
 
 if __name__ == "__main__":
     main()
+

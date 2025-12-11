@@ -11,7 +11,7 @@ def construir_diccionario(df,
 
     palabras = [w for w, f in contador.items() if f >= min_freq]
 
-    palabras_sorted = sorted(palabras, key=lambda w: -contador[w])  # ordenadas por frecuencia desc.
+    palabras_sorted = sorted(palabras, key=lambda w: -contador[w])
     if max_vocab is not None:
         palabras_sorted = palabras_sorted[:max_vocab]
 

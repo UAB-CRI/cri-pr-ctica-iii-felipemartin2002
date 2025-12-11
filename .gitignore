@@ -7,3 +7,6 @@ SentimentAnalysisDataset.csv
 FinalStemmedSentimentAnalysisDataset.csv
 SentimentAnalysisDataset.csv
 >>>>>>> parent of facd04b (Procesamiento de datos)
+.vscode/settings.json
+__pycache__/diccionary.cpython-311.pyc
+__pycache__/load.cpython-311.pyc
