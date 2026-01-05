@@ -9,6 +9,11 @@ from experiments_b import (
     experiment_strategy_3_fixed_vocab_vary_train,
     experiment_test_size_effect_holdout
 )
+from experiments_a import (
+    experiment_A1_train_grows_vocab_grows_alphas,
+    experiment_A2_fixed_train_vary_vocab_alphas,
+    experiment_A3_fixed_vocab_vary_train_alphas
+)
 
 def main():
     ruta = "FinalStemmedSentimentAnalysisDataset.csv"
@@ -76,6 +81,40 @@ def main():
         random_state=42
     )
     df_test.to_csv("B_test_size_effect.csv", index=False)
+
+    alphas = (0.0, 0.1, 0.5, 1.0, 2.0)
+
+    # A1
+    df_a1 = experiment_A1_train_grows_vocab_grows_alphas(
+        df,
+        alphas=alphas,
+        train_fracs=(0.10, 0.20, 0.40, 0.60, 0.80, 1.0),
+        k=5,
+        min_freq=2
+    )
+    df_a1.to_csv("A1_train_grows_vocab_grows_alphas.csv", index=False)
+
+    # A2
+    df_a2 = experiment_A2_fixed_train_vary_vocab_alphas(
+        df,
+        alphas=alphas,
+        vocab_sizes=(5000, 10000, 20000, 50000, 100000),
+        train_frac=1.0,
+        k=5,
+        min_freq=2
+    )
+    df_a2.to_csv("A2_fixed_train_vary_vocab_alphas.csv", index=False)
+
+    # A3
+    df_a3 = experiment_A3_fixed_vocab_vary_train_alphas(
+        df,
+        alphas=alphas,
+        train_fracs=(0.10, 0.20, 0.40, 0.60, 0.80, 1.0),
+        fixed_vocab_size=50000,
+        k=5,
+        min_freq=2
+    )
+    df_a3.to_csv("A3_fixed_vocab_vary_train_alphas.csv", index=False)
 
 if __name__ == "__main__":
     main()
